@@ -25,6 +25,9 @@ jobs:
       EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
       USER_SERVER: ${{ secrets.USER_SERVER }}
 
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
     steps:
 
       - name: Checkout repository
@@ -59,20 +62,19 @@ jobs:
       - name: Deploy on EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_SERVER}@${EC2_HOST} "
+            
+            docker pull ${DOCKERHUB_USERNAME}/plataforma_educativa_api:latest
 
-            docker pull ${DOCKERHUB_USERNAME}/plataforma_educativa_api:latest &&
-
-            docker stop plataforma-edu-api || true &&
-            docker rm plataforma-edu-api || true &&
+            docker stop plataforma-edu-api || true
+            docker rm plataforma-edu-api || true
 
             docker run -d -p 8080:8080 \
               -v /home/ubuntu/wallet:/wallet \
               --name plataforma-edu-api \
-              -e DB_USERNAME='${{ secrets.DB_USERNAME }}' \
-              -e DB_PASSWORD='${{ secrets.DB_PASSWORD }}' \
-              ${DOCKERHUB_USERNAME}/plataforma_educativa_api:latest &&
+              -e DB_USERNAME=${DB_USERNAME} \
+              -e DB_PASSWORD=${DB_PASSWORD} \
+              ${DOCKERHUB_USERNAME}/plataforma_educativa_api:latest
 
-            docker ps &&
-
+            docker ps -a
             docker logs plataforma-edu-api --tail 50
           "
