@@ -1,4 +1,4 @@
-name: CI-CD Plataforma Educativa 
+name: CI-CD Plataforma Educativa
 
 on:
   push:
@@ -70,9 +70,12 @@ jobs:
 
             docker run -d -p 8080:8080 \
               -v /home/ubuntu/wallet:/wallet \
-              -e DB_USERNAME=${DB_USERNAME} \
-              -e DB_PASSWORD=${DB_PASSWORD} \
               --name plataforma-edu-api \
+              -e DB_USERNAME='${DB_USERNAME}' \
+              -e DB_PASSWORD='${DB_PASSWORD}' \
               ${DOCKERHUB_USERNAME}/plataforma_educativa_api:latest
+
+            docker ps
+            docker logs plataforma-edu-api --tail 50
 
           EOF
