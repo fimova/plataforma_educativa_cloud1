@@ -1,10 +1,10 @@
-package com.duoc.PlataformaEducativa.mapper;
+package com.duoc.plataformaeducativa.mapper;
 
 import java.util.List;
 
-import com.duoc.PlataformaEducativa.dto.UsuarioRequestDTO;
-import com.duoc.PlataformaEducativa.dto.UsuarioResponseDTO;
-import com.duoc.PlataformaEducativa.entidad.Usuario;
+import com.duoc.plataformaeducativa.dto.UsuarioRequestDTO;
+import com.duoc.plataformaeducativa.dto.UsuarioResponseDTO;
+import com.duoc.plataformaeducativa.entidad.Usuario;
 
 public class UsuarioMapper {
     

@@ -1,11 +1,11 @@
-package com.duoc.PlataformaEducativa.exception;
+package com.duoc.plataformaeducativa.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.duoc.PlataformaEducativa.dto.ErrorResponseDTO;
+import com.duoc.plataformaeducativa.dto.ErrorResponseDTO;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import java.time.LocalDateTime;

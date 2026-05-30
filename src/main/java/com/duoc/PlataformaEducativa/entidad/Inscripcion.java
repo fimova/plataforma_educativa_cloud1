@@ -1,4 +1,4 @@
-package com.duoc.PlataformaEducativa.entidad;
+package com.duoc.plataformaeducativa.entidad;
 
 import java.time.LocalDate;
 import java.util.List;

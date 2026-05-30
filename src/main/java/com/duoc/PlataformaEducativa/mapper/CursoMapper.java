@@ -1,10 +1,10 @@
-package com.duoc.PlataformaEducativa.mapper;
-
-import com.duoc.PlataformaEducativa.dto.CursoRequestDTO;
-import com.duoc.PlataformaEducativa.dto.CursoResponseDTO;
-import com.duoc.PlataformaEducativa.entidad.Curso;
+package com.duoc.plataformaeducativa.mapper;
 
 import java.util.List;
+
+import com.duoc.plataformaeducativa.dto.CursoRequestDTO;
+import com.duoc.plataformaeducativa.dto.CursoResponseDTO;
+import com.duoc.plataformaeducativa.entidad.Curso;
 
 public class CursoMapper {
 

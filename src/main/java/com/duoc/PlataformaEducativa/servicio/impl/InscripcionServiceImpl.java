@@ -1,21 +1,23 @@
-package com.duoc.PlataformaEducativa.servicio.impl;
+package com.duoc.plataformaeducativa.servicio.impl;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.duoc.PlataformaEducativa.dto.InscripcionRequestDTO;
-import com.duoc.PlataformaEducativa.dto.InscripcionResponseDTO;
-import com.duoc.PlataformaEducativa.entidad.Curso;
-import com.duoc.PlataformaEducativa.entidad.Inscripcion;
-import com.duoc.PlataformaEducativa.entidad.Usuario;
-import com.duoc.PlataformaEducativa.exception.ResourceNotFoundException;
-import com.duoc.PlataformaEducativa.mapper.InscripcionMapper;
-import com.duoc.PlataformaEducativa.repositorio.CursoRepository;
-import com.duoc.PlataformaEducativa.repositorio.InscripcionRepository;
-import com.duoc.PlataformaEducativa.repositorio.UsuarioRepository;
-import com.duoc.PlataformaEducativa.servicio.InscripcionService;
+import com.duoc.plataformaeducativa.dto.InscripcionRequestDTO;
+import com.duoc.plataformaeducativa.dto.InscripcionResponseDTO;
+import com.duoc.plataformaeducativa.entidad.Curso;
+import com.duoc.plataformaeducativa.entidad.Inscripcion;
+import com.duoc.plataformaeducativa.entidad.Usuario;
+import com.duoc.plataformaeducativa.exception.ResourceNotFoundException;
+import com.duoc.plataformaeducativa.mapper.InscripcionMapper;
+import com.duoc.plataformaeducativa.repositorio.CursoRepository;
+import com.duoc.plataformaeducativa.repositorio.InscripcionRepository;
+import com.duoc.plataformaeducativa.repositorio.UsuarioRepository;
+import com.duoc.plataformaeducativa.servicio.InscripcionService;
+import com.duoc.plataformaeducativa.servicio.S3Service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,8 @@ public class InscripcionServiceImpl implements InscripcionService {
     private final UsuarioRepository usuarioRepository;
 
     private final CursoRepository cursoRepository;
+
+    private final S3Service s3Service;
 
     @Override
     @Transactional
@@ -63,7 +67,28 @@ public class InscripcionServiceImpl implements InscripcionService {
         inscripcion.setTotal(total);
 
         Inscripcion inscripcionGuardada =
-                inscripcionRepository.save(inscripcion);
+        inscripcionRepository.save(inscripcion);
+
+        String resumen =
+                generarResumen(
+                        inscripcionGuardada.getId()
+                );
+
+        try {
+
+        s3Service.subirArchivoTexto(
+                inscripcionGuardada.getId()
+                        + "/resumen.txt",
+                resumen
+        );
+
+        } catch (IOException e) {
+
+        throw new RuntimeException(
+                "Error subiendo resumen a S3",
+                e
+        );
+        }
 
         return InscripcionMapper.toResponseDTO(
                 inscripcionGuardada
@@ -80,4 +105,47 @@ public class InscripcionServiceImpl implements InscripcionService {
                 inscripciones
         );
     }
+
+    @Override
+        public String generarResumen(Long inscripcionId) {
+
+        Inscripcion inscripcion =
+                inscripcionRepository.findById(inscripcionId)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Inscripción no encontrada"
+                                )
+                        );
+
+        StringBuilder resumen =
+                new StringBuilder();
+
+        resumen.append("RESUMEN DE INSCRIPCION\n\n");
+
+        resumen.append("Numero: ")
+                .append(inscripcion.getId())
+                .append("\n");
+
+        resumen.append("Alumno: ")
+                .append(inscripcion.getUsuario().getNombre())
+                .append("\n");
+
+        resumen.append("Fecha: ")
+                .append(inscripcion.getFechaInscripcion())
+                .append("\n\n");
+
+        resumen.append("Cursos:\n");
+
+        for (Curso curso : inscripcion.getCursos()) {
+
+                resumen.append("- ")
+                        .append(curso.getNombre())
+                        .append("\n");
+        }
+
+        resumen.append("\nTotal: $")
+                .append(inscripcion.getTotal());
+
+        return resumen.toString();
+        }
 }

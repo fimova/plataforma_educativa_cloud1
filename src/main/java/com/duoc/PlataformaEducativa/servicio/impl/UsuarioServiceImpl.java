@@ -1,16 +1,16 @@
-package com.duoc.PlataformaEducativa.servicio.impl;
+package com.duoc.plataformaeducativa.servicio.impl;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.duoc.PlataformaEducativa.dto.UsuarioRequestDTO;
-import com.duoc.PlataformaEducativa.dto.UsuarioResponseDTO;
-import com.duoc.PlataformaEducativa.entidad.Usuario;
-import com.duoc.PlataformaEducativa.exception.DuplicateResourceException;
-import com.duoc.PlataformaEducativa.mapper.UsuarioMapper;
-import com.duoc.PlataformaEducativa.repositorio.UsuarioRepository;
-import com.duoc.PlataformaEducativa.servicio.UsuarioService;
+import com.duoc.plataformaeducativa.dto.UsuarioRequestDTO;
+import com.duoc.plataformaeducativa.dto.UsuarioResponseDTO;
+import com.duoc.plataformaeducativa.entidad.Usuario;
+import com.duoc.plataformaeducativa.exception.DuplicateResourceException;
+import com.duoc.plataformaeducativa.mapper.UsuarioMapper;
+import com.duoc.plataformaeducativa.repositorio.UsuarioRepository;
+import com.duoc.plataformaeducativa.servicio.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
 

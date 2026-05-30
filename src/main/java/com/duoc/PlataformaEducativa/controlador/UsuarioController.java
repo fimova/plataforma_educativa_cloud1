@@ -1,4 +1,4 @@
-package com.duoc.PlataformaEducativa.controlador;
+package com.duoc.plataformaeducativa.controlador;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.duoc.PlataformaEducativa.dto.UsuarioRequestDTO;
-import com.duoc.PlataformaEducativa.dto.UsuarioResponseDTO;
-import com.duoc.PlataformaEducativa.servicio.UsuarioService;
+import com.duoc.plataformaeducativa.dto.UsuarioRequestDTO;
+import com.duoc.plataformaeducativa.dto.UsuarioResponseDTO;
+import com.duoc.plataformaeducativa.servicio.UsuarioService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

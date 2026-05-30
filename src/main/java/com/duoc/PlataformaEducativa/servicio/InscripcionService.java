@@ -1,9 +1,9 @@
-package com.duoc.PlataformaEducativa.servicio;
+package com.duoc.plataformaeducativa.servicio;
 
 import java.util.List;
 
-import com.duoc.PlataformaEducativa.dto.InscripcionRequestDTO;
-import com.duoc.PlataformaEducativa.dto.InscripcionResponseDTO;
+import com.duoc.plataformaeducativa.dto.InscripcionRequestDTO;
+import com.duoc.plataformaeducativa.dto.InscripcionResponseDTO;
 
 public interface InscripcionService {
     InscripcionResponseDTO crearInscripcion(
@@ -11,4 +11,6 @@ public interface InscripcionService {
     );
 
     List<InscripcionResponseDTO> listarInscripciones();
+
+    String generarResumen(Long inscripcionId);
 }

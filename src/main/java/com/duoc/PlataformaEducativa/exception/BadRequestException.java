@@ -1,4 +1,4 @@
-package com.duoc.PlataformaEducativa.exception;
+package com.duoc.plataformaeducativa.exception;
 
 public class BadRequestException extends RuntimeException {
     public BadRequestException(String message) {

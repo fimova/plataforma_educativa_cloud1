@@ -1,4 +1,4 @@
-package com.duoc.PlataformaEducativa.exception;
+package com.duoc.plataformaeducativa.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

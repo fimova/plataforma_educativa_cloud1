@@ -1,9 +1,9 @@
-package com.duoc.PlataformaEducativa.servicio;
+package com.duoc.plataformaeducativa.servicio;
 
 import java.util.List;
 
-import com.duoc.PlataformaEducativa.dto.UsuarioRequestDTO;
-import com.duoc.PlataformaEducativa.dto.UsuarioResponseDTO;
+import com.duoc.plataformaeducativa.dto.UsuarioRequestDTO;
+import com.duoc.plataformaeducativa.dto.UsuarioResponseDTO;
 
 public interface UsuarioService {
     UsuarioResponseDTO crearUsuario(

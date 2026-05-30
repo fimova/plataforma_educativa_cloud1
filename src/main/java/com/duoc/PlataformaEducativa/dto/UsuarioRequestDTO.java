@@ -1,6 +1,6 @@
-package com.duoc.PlataformaEducativa.dto;
+package com.duoc.plataformaeducativa.dto;
 
-import com.duoc.PlataformaEducativa.entidad.Rol;
+import com.duoc.plataformaeducativa.entidad.Rol;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

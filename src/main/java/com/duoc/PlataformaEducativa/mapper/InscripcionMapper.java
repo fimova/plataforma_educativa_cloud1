@@ -1,9 +1,9 @@
-package com.duoc.PlataformaEducativa.mapper;
+package com.duoc.plataformaeducativa.mapper;
 
 import java.util.List;
 
-import com.duoc.PlataformaEducativa.dto.InscripcionResponseDTO;
-import com.duoc.PlataformaEducativa.entidad.Inscripcion;
+import com.duoc.plataformaeducativa.dto.InscripcionResponseDTO;
+import com.duoc.plataformaeducativa.entidad.Inscripcion;
 
 public class InscripcionMapper {
     public static InscripcionResponseDTO toResponseDTO(Inscripcion inscripcion) {

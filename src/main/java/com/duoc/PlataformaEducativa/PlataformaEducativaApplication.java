@@ -1,4 +1,4 @@
-package com.duoc.PlataformaEducativa;
+package com.duoc.plataformaeducativa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

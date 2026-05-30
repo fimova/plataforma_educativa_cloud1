@@ -1,4 +1,4 @@
-package com.duoc.PlataformaEducativa.entidad;
+package com.duoc.plataformaeducativa.entidad;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

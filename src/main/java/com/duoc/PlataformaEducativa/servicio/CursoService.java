@@ -1,9 +1,9 @@
-package com.duoc.PlataformaEducativa.servicio;
+package com.duoc.plataformaeducativa.servicio;
 
 import java.util.List;
 
-import com.duoc.PlataformaEducativa.dto.CursoRequestDTO;
-import com.duoc.PlataformaEducativa.dto.CursoResponseDTO;
+import com.duoc.plataformaeducativa.dto.CursoRequestDTO;
+import com.duoc.plataformaeducativa.dto.CursoResponseDTO;
 
 public interface CursoService {
 

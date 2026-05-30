@@ -1,4 +1,4 @@
-package com.duoc.PlataformaEducativa.dto;
+package com.duoc.plataformaeducativa.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
