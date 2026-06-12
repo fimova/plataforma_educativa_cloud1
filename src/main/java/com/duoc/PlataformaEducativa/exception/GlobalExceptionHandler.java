@@ -1,5 +1,8 @@
 package com.duoc.plataformaeducativa.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.duoc.plataformaeducativa.dto.ErrorResponseDTO;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,88 +19,99 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> manejarNotFound(
-            ResourceNotFoundException ex
-    ) {
-
-        ErrorResponseDTO error = new ErrorResponseDTO(
-                LocalDateTime.now(),
-                HttpStatus.NOT_FOUND.value(),
-                HttpStatus.NOT_FOUND.name(),
-                ex.getMessage()
+private static final Logger log =
+        LoggerFactory.getLogger(
+                GlobalExceptionHandler.class
         );
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(error);
-    }
+@ExceptionHandler(ResourceNotFoundException.class)
+public ResponseEntity<ErrorResponseDTO> manejarNotFound(
+        ResourceNotFoundException ex
+) {
 
-    @ExceptionHandler(DuplicateResourceException.class)
-    public ResponseEntity<ErrorResponseDTO> manejarDuplicado(
-            DuplicateResourceException ex
-    ) {
+    ErrorResponseDTO error = new ErrorResponseDTO(
+            LocalDateTime.now(),
+            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.NOT_FOUND.name(),
+            ex.getMessage()
+    );
 
-        ErrorResponseDTO error = new ErrorResponseDTO(
-                LocalDateTime.now(),
-                HttpStatus.CONFLICT.value(),
-                HttpStatus.CONFLICT.name(),
-                ex.getMessage()
-        );
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(error);
+}
 
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(error);
-    }
+@ExceptionHandler(DuplicateResourceException.class)
+public ResponseEntity<ErrorResponseDTO> manejarDuplicado(
+        DuplicateResourceException ex
+) {
 
-    @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorResponseDTO> manejarBadRequest(
-            BadRequestException ex
-    ) {
+    ErrorResponseDTO error = new ErrorResponseDTO(
+            LocalDateTime.now(),
+            HttpStatus.CONFLICT.value(),
+            HttpStatus.CONFLICT.name(),
+            ex.getMessage()
+    );
 
-        ErrorResponseDTO error = new ErrorResponseDTO(
-                LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST.value(),
-                HttpStatus.BAD_REQUEST.name(),
-                ex.getMessage()
-        );
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(error);
+}
 
-        return ResponseEntity.badRequest()
-                .body(error);
-    }
+@ExceptionHandler(BadRequestException.class)
+public ResponseEntity<ErrorResponseDTO> manejarBadRequest(
+        BadRequestException ex
+) {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> manejarValidaciones(
-            MethodArgumentNotValidException ex
-    ) {
+    ErrorResponseDTO error = new ErrorResponseDTO(
+            LocalDateTime.now(),
+            HttpStatus.BAD_REQUEST.value(),
+            HttpStatus.BAD_REQUEST.name(),
+            ex.getMessage()
+    );
 
-        Map<String, String> errores = new HashMap<>();
+    return ResponseEntity.badRequest()
+            .body(error);
+}
 
-        ex.getBindingResult()
-                .getFieldErrors()
-                .forEach(error ->
-                        errores.put(
-                                error.getField(),
-                                error.getDefaultMessage()
-                        )
-                );
+@ExceptionHandler(MethodArgumentNotValidException.class)
+public ResponseEntity<Map<String, String>> manejarValidaciones(
+        MethodArgumentNotValidException ex
+) {
 
-        return ResponseEntity.badRequest()
-                .body(errores);
-    }
+    Map<String, String> errores = new HashMap<>();
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDTO> manejarGeneral(
-            Exception ex
-    ) {
+    ex.getBindingResult()
+            .getFieldErrors()
+            .forEach(error ->
+                    errores.put(
+                            error.getField(),
+                            error.getDefaultMessage()
+                    )
+            );
 
-        ErrorResponseDTO error = new ErrorResponseDTO(
-                LocalDateTime.now(),
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                HttpStatus.INTERNAL_SERVER_ERROR.name(),
-                "Error interno"
-        );
+    return ResponseEntity.badRequest()
+            .body(errores);
+}
 
-        return ResponseEntity.status(
-                HttpStatus.INTERNAL_SERVER_ERROR
-        ).body(error);
-    }
+@ExceptionHandler(Exception.class)
+public ResponseEntity<ErrorResponseDTO> manejarGeneral(
+        Exception ex
+) {
+
+    log.error(
+            "Error interno",
+            ex
+    );
+
+    ErrorResponseDTO error = new ErrorResponseDTO(
+            LocalDateTime.now(),
+            HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            HttpStatus.INTERNAL_SERVER_ERROR.name(),
+            "Error interno"
+    );
+
+    return ResponseEntity.status(
+            HttpStatus.INTERNAL_SERVER_ERROR
+    ).body(error);
+}
+
 }
